@@ -1,17 +1,15 @@
-import React from 'react';
+import React from "react";
 
-const person = (props) => {
-
-    // le JSX commence toujours par un DIV
-    return (
-            <div>
-                <h4>{props.name}</h4>  
-                <p> My name is {props.name} and my age is {props.age} years </p>
-                <p>{props.children}</p>
-                
-            </div>
-        )
-}
+const person = props => {
+  return (
+    <div>
+      <h1>personne </h1>
+      <input type="text" onChange={props.change} value={props.name} />
+      <p>
+        Le prénom est {props.name} et son age est {props.age} an .
+      </p>
+      <button onClick={props.delete}>Delete ME </button>
+    </div>
+  );
+};
 export default person;
-
-

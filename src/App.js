@@ -4,80 +4,60 @@ import "./App.css";
 import Person from "./Person/Person";
 
 class App extends Component {
-  // State 
+  // State
   state = {
     persons: [
-      { name: "lapinouState ", age: 34 },
-      { name: "MarleneState ", age: 14 },
-      { name: "Kevin ", age: 3 }
+      { id: "erer", name: "lapinouState ", age: 34 },
+      { id: "13", name: "MarleneState ", age: 14 },
+      { id: "14", name: "Kevin ", age: 3 }
     ],
     toggler: false
   };
 
-// Méthode 
+  // Méthode
 
-nameSwitchHandler = (event) => {
-  // this.setSate() est une méthode.
-
-  console.log("debut" + this.state.toggler);
-
-  if (this.state.toggler) {
-
+  deleteHandler = id => {
+    let persons = [...this.state.persons];
+    //copy de l'array
+    let personIndex = persons.findIndex(el => el.id === id);
+    // recherche de l'index
+    persons.splice(personIndex, 1);
+    // troncature de l'index
     this.setState({
-      persons: [
-        { name: "autre Sate ", age: 34 },
-      { name: "autre state ", age: 14 },
-      { name: "AutreState ", age: 3 }
-
-      ],
-      toggler: false
+      persons: persons
     });
+  };
 
-
-  } else {
+  inputHandler = (event, id) => {
+    let persons = [...this.state.persons];
+    //copy de l'array
+    let personIndex = persons.findIndex(el => el.id === id);
+    // recherche de l'index
+    persons[personIndex].name = event.target.value;
+    // Changement de la value nom
     this.setState({
-      persons: [
-        { name: "lapinouState ", age: 34 },
-      { name: "MarleneState ", age: 14 },
-      { name: "Kevin ", age: 3 }
-
-      ],
-      toggler: true
+      persons: persons
     });
-
-
-  }
-  console.log("Fin " + this.state.toggler);
-}
-
-
-
-
+  };
   render() {
-    return (
-      <div className="App">
-        <div id='L1'>
-          <h1>SALUT </h1>
-          <Person name="Nouri" age="28" />
-          <Person name="Lara" age="25">
-            {" "}
-            Props children :{" "}
-          </Person>
-          <Person name="Delphine" age="29" />
-        </div>
-        <div id=''>
-        <button onClick= {this.nameSwitchHandler}> Click Moi </button>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-          />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-          />
-        </div>
+    let per = null;
+    per = (
+      <div>
+        {this.state.persons.map(el => {
+          return (
+            <Person
+              name={el.name}
+              age={el.age}
+              key={el.id}
+              delete={() => this.deleteHandler(el.id)}
+              change={event => this.inputHandler(event, el.id)}
+            />
+          );
+        })}
       </div>
     );
+
+    return <div>{per}</div>;
   }
 }
 
