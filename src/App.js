@@ -49,7 +49,8 @@ class App extends Component {
               name={el.name}
               age={el.age}
               key={el.id}
-              delete={() => this.deleteHandler(el.id)}
+              // delete={() => this.deleteHandler(el.id)}
+              delete={this.deleteHandler.bind(this, el.id)} // methode bind this
               change={event => this.inputHandler(event, el.id)}
             />
           );
